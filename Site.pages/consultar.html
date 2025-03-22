@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Atrasos - Controle de Atrasos dos Alunos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .filter-container {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .results-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .form-inline .form-group {
+            flex: 1 1 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background: #f2f2f2;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .pagination button.active {
+            background: #3498db;
+            color: #fff;
+            border-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Controle de Atrasos</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="registrar.html">Registrar Atraso</a></li>
+                <li><a href="consultar.html" class="active">Consultar</a></li>
+                <li><a href="relatorios.html">Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Consultar Atrasos</h2>
+            
+            <div class="filter-container">
+                <h3>Filtros</h3>
+                <form id="formConsulta">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label for="aluno">Aluno:</label>
+                            <select id="aluno" name="aluno">
+                                <option value="">Todos os alunos</option>
+                                <option value="1">Ana Silva</option>
+                                <option value="2">Bruno Santos</option>
+                                <option value="3">Carlos Oliveira</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="turma">Turma:</label>
+                            <select id="turma" name="turma">
+                                <option value="">Todas as turmas</option>
+                                <option value="1">1º Ano A</option>
+                                <option value="2">2º Ano B</option>
+                                <option value="3">3º Ano C</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label for="dataInicio">Data Início:</label>
+                            <input type="date" id="dataInicio" name="dataInicio">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dataFim">Data Fim:</label>
+                            <input type="date" id="dataFim" name="dataFim">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select id="status" name="status">
+                                <option value="">Todos</option>
+                                <option value="pendente">Pendente</option>
+                                <option value="justificado">Justificado</option>
+                                <option value="nao_justificado">Não Justificado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn">Consultar</button>
+                        <button type="reset" class="btn">Limpar Filtros</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="results-container">
+                <h3>Resultados</h3>
+                <div id="resultados">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Turma</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Minutos</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaAtrasos">
+                            <!-- Dados de exemplo que seriam substituídos por dados reais do banco -->
+                            <tr>
+                                <td>Ana Silva</td>
+                                <td>1º Ano A</td>
+                                <td>10/03/2025</td>
+                                <td>08:15</td>
+                                <td>15</td>
+                                <td>Pendente</td>
+                                <td>
+                                    <button class="btn" onclick="visualizarAtraso(1)">Visualizar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bruno Santos</td>
+                                <td>1º Ano A</td>
+                                <td>12/03/2025</td>
+                                <td>08:20</td>
+                                <td>20</td>
+                                <td>Justificado</td>
+                                <td>
+                                    <button class="btn" onclick="visualizarAtraso(2)">Visualizar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Carlos Oliveira</td>
+                                <td>2º Ano B</td>
+                                <td>15/03/2025</td>
+                                <td>08:30</td>
+                                <td>30</td>
+                                <td>Não Justificado</td>
+                                <td>
+                                    <button class="btn" onclick="visualizarAtraso(3)">Visualizar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination">
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 DE OLIVEIRA - Sistema de Controle de Atrasos dos Alunos</p>
+    </footer>
+
+    <script>
+        // Função para visualizar detalhes do atraso
+        function visualizarAtraso(id) {
+            alert(`Detalhes do atraso ID: ${id}\nEm um sistema real, abriria um modal ou página de detalhes.`);
+        }
+        
+        // Capturar o evento de envio do formulário
+        document.getElementById('formConsulta').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Em um sistema real, aqui seria feita uma requisição AJAX para buscar os dados filtrados
+            alert('Consulta realizada. Em um sistema real, a tabela seria atualizada com os resultados da consulta.');
+        });
+    </script>
+</body>
+</html>
