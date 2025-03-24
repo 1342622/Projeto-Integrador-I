@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Atrasos - Controle de Atrasos dos Alunos</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Controle de Atrasos</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="registrar.html">Registrar Atraso</a></li>
+                <li><a href="consultar.html" class="active">Consultar</a></li>
+                <li><a href="relatorios.html">Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Consultar Atrasos</h2>
+            
+            <div class="form-container">
+                <form id="formConsulta">
+                    <div class="form-group">
+                        <label for="filtro">Filtrar por:</label>
+                        <select id="filtro" name="filtro">
+                            <option value="todos">Todos os atrasos</option>
+                            <option value="aluno">Aluno</option>
+                            <option value="turma">Turma</option>
+                            <option value="data">Período</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group filtro-aluno" style="display: none;">
+                        <label for="aluno">Aluno:</label>
+                        <select id="aluno" name="aluno">
+                            <option value="">Selecione o aluno</option>
+                            <!-- Os alunos serão carregados via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group filtro-turma" style="display: none;">
+                        <label for="turma">Turma:</label>
+                        <select id="turma" name="turma">
+                            <option value="">Selecione a turma</option>
+                            <!-- As turmas serão carregadas via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group filtro-data" style="display: none;">
+                        <label for="data_inicio">Data Início:</label>
+                        <input type="date" id="data_inicio" name="data_inicio">
+                    </div>
+                    
+                    <div class="form-group filtro-data" style="display: none;">
+                        <label for="data_fim">Data Fim:</label>
+                        <input type="date" id="data_fim" name="data_fim">
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-submit">Consultar</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="resultados" style="margin-top: 20px;">
+                <h3>Resultados</h3>
+                <table id="tabelaAtrasos">
+                    <thead>
+                        <tr>
+                            <th>Aluno</th>
+                            <th>Turma</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Minutos</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os resultados serão carregados via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 DE OLIVEIRA - Sistema de Controle de Atrasos dos Alunos</p>
+    </footer>
+
+    <script src="../js/consulta.js"></script>
+</body>
+</html>

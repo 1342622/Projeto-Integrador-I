@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Atraso - Controle de Atrasos dos Alunos</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Controle de Atrasos</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="registrar.html" class="active">Registrar Atraso</a></li>
+                <li><a href="consultar.html">Consultar</a></li>
+                <li><a href="relatorios.html">Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Registrar Novo Atraso</h2>
+            <div class="form-container">
+                <form id="formAtraso">
+                    <div class="form-group">
+                        <label for="aluno">Aluno:</label>
+                        <select id="aluno" name="aluno" required>
+                            <option value="">Selecione o aluno</option>
+                            <!-- Os alunos serão carregados via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="horario">Horário:</label>
+                        <input type="time" id="horario" name="horario" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="minutos">Minutos de Atraso:</label>
+                        <input type="number" id="minutos" name="minutos" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="justificativa">Justificativa:</label>
+                        <textarea id="justificativa" name="justificativa" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-submit">Registrar Atraso</button>
+                        <button type="reset" class="btn">Limpar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 DE OLIVEIRA - Sistema de Controle de Atrasos dos Alunos</p>
+    </footer>
+
+    <script src="../js/registro.js"></script>
+</body>
+</html>
