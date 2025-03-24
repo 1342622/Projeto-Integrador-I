@@ -5,16 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Atraso - Controle de Atrasos dos Alunos</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .required::after {
+            content: "*";
+            color: #ff0000;
+            margin-left: 4px;
+        }
+        
+        .error-message {
+            color: #ff0000;
+            font-size: 0.875rem;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        .error-message.visible {
+            display: block;
+        }
+        
+        .chars-counter {
+            color: #666;
+            font-size: 0.875rem;
+            text-align: right;
+            margin-top: 4px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        input:invalid,
+        select:invalid,
+        textarea:invalid {
+            border-color: #ff0000;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Sistema de Controle de Atrasos</h1>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Início</a></li>
-                <li><a href="registrar.html" class="active">Registrar Atraso</a></li>
-                <li><a href="consultar.html">Consultar</a></li>
-                <li><a href="relatorios.html">Relatórios</a></li>
+        <nav aria-label="Menu principal">
+            <ul role="menubar">
+                <li role="menuitem"><a href="../index.html">Início</a></li>
+                <li role="menuitem"><a href="registrar.html" class="active" aria-current="page">Registrar Atraso</a></li>
+                <li role="menuitem"><a href="consultar.html">Consultar</a></li>
+                <li role="menuitem"><a href="relatorios.html">Relatórios</a></li>
             </ul>
         </nav>
     </header>
@@ -23,38 +64,45 @@
         <section>
             <h2>Registrar Novo Atraso</h2>
             <div class="form-container">
-                <form id="formAtraso">
+                <form id="formAtraso" novalidate>
                     <div class="form-group">
-                        <label for="aluno">Aluno:</label>
-                        <select id="aluno" name="aluno" required>
+                        <label for="aluno" class="required">Aluno:</label>
+                        <select id="aluno" name="aluno" required aria-required="true">
                             <option value="">Selecione o aluno</option>
                             <!-- Os alunos serão carregados via JavaScript -->
                         </select>
+                        <div class="error-message" id="aluno-error"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="data">Data:</label>
-                        <input type="date" id="data" name="data" required>
+                        <label for="data" class="required">Data:</label>
+                        <input type="date" id="data" name="data" required aria-required="true" max="2025-12-31">
+                        <div class="error-message" id="data-error"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="horario">Horário:</label>
-                        <input type="time" id="horario" name="horario" required>
+                        <label for="horario" class="required">Horário:</label>
+                        <input type="time" id="horario" name="horario" required aria-required="true">
+                        <div class="error-message" id="horario-error"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="minutos">Minutos de Atraso:</label>
-                        <input type="number" id="minutos" name="minutos" min="1" required>
+                        <label for="minutos" class="required">Minutos de Atraso:</label>
+                        <input type="number" id="minutos" name="minutos" min="1" max="999" required aria-required="true">
+                        <div class="error-message" id="minutos-error"></div>
                     </div>
                     
                     <div class="form-group">
                         <label for="justificativa">Justificativa:</label>
-                        <textarea id="justificativa" name="justificativa" rows="3"></textarea>
+                        <textarea id="justificativa" name="justificativa" rows="3" maxlength="500"></textarea>
+                        <div class="chars-counter" aria-live="polite">
+                            <span id="char-count">500</span> caracteres restantes
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-submit">Registrar Atraso</button>
-                        <button type="reset" class="btn">Limpar</button>
+                    <div class="form-group button-group">
+                        <button type="submit" class="btn btn-submit" id="btnSubmit">Registrar Atraso</button>
+                        <button type="reset" class="btn" id="btnReset">Limpar</button>
                     </div>
                 </form>
             </div>
@@ -65,6 +113,13 @@
         <p>&copy; 2025 DE OLIVEIRA - Sistema de Controle de Atrasos dos Alunos</p>
     </footer>
 
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
     <script src="../js/registro.js"></script>
+    <noscript>
+        <div class="error-message">
+            Este sistema requer JavaScript para funcionar corretamente.
+        </div>
+    </noscript>
 </body>
 </html>

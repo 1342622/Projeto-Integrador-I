@@ -9,12 +9,12 @@
 <body>
     <header>
         <h1>Sistema de Controle de Atrasos</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Início</a></li>
-                <li><a href="pages/registrar.html">Registrar Atraso</a></li>
-                <li><a href="pages/consultar.html">Consultar</a></li>
-                <li><a href="pages/relatorios.html">Relatórios</a></li>
+        <nav aria-label="Menu principal">
+            <ul role="menubar">
+                <li role="menuitem"><a href="../index.html">Início</a></li>
+                <li role="menuitem"><a href="registrar.html">Registrar Atraso</a></li>
+                <li role="menuitem"><a href="consultar.html" class="active" aria-current="page">Consultar</a></li>
+                <li role="menuitem"><a href="relatorios.html">Relatórios</a></li>
             </ul>
         </nav>
     </header>
@@ -45,6 +45,50 @@
                 </div>
             </div>
         </section>
+
+        <div class="resultados" style="margin-top: 20px;">
+            <h3>Resultados</h3>
+            <form id="formConsulta" novalidate aria-label="Formulário de consulta de atrasos">
+                <div class="form-group">
+                    <label for="filtro" class="required">Filtrar por:</label>
+                    <select id="filtro" name="filtro" required aria-required="true">
+                        <option value="">Selecione um filtro</option>
+                        <option value="todos">Todos os atrasos</option>
+                        <option value="aluno">Aluno</option>
+                        <option value="turma">Turma</option>
+                        <option value="data">Período</option>
+                    </select>
+                </div>
+                
+                <div class="form-group filtro-aluno" style="display: none;" aria-hidden="true">
+                    <label for="aluno" class="required">Aluno:</label>
+                    <select id="aluno" name="aluno" required aria-required="true">
+                        <option value="">Selecione o aluno</option>
+                    </select>
+                </div>
+            </form>
+            <div class="table-responsive" role="region" aria-label="Resultados da consulta" tabindex="0">
+                <table id="tabelaAtrasos" class="table">
+                    <caption>Lista de atrasos encontrados</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Aluno</th>
+                            <th scope="col">Turma</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Minutos</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7" class="text-center">Carregando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
 
     <footer>

@@ -14,7 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // Função para carregar a lista de alunos
 function carregarAlunos() {
     fetch(`${API_BASE_URL}/alunos.php`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const selectAluno = document.getElementById('aluno');
             

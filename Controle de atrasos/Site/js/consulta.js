@@ -2,6 +2,20 @@
  * Script para a página de consulta de atrasos
  */
 
+// Verificar se API_BASE_URL está definida
+if (typeof API_BASE_URL === 'undefined') {
+    throw new Error('API_BASE_URL não está definida');
+}
+
+// Função helper para requisições
+async function fetchApi(url, options = {}) {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+    }
+    return response.json();
+}
+
 // Quando o documento estiver pronto
 document.addEventListener('DOMContentLoaded', function() {
     // Carregar as listas de alunos e turmas
@@ -45,8 +59,7 @@ function mudarFiltro() {
 
 // Função para carregar a lista de alunos
 function carregarAlunos() {
-    fetch(`${API_BASE_URL}/alunos.php`)
-        .then(response => response.json())
+    fetchApi(`${API_BASE_URL}/alunos.php`)
         .then(data => {
             const selectAluno = document.getElementById('aluno');
             
@@ -69,8 +82,7 @@ function carregarAlunos() {
 
 // Função para carregar a lista de turmas
 function carregarTurmas() {
-    fetch(`${API_BASE_URL}/turmas.php`)
-        .then(response => response.json())
+    fetchApi(`${API_BASE_URL}/turmas.php`)
         .then(data => {
             const selectTurma = document.getElementById('turma');
             
@@ -124,8 +136,7 @@ function consultarAtrasos(event) {
     }
     
     // Fazer a requisição para a API
-    fetch(url)
-        .then(response => response.json())
+    fetchApi(url)
         .then(data => {
             exibirResultados(data);
         })

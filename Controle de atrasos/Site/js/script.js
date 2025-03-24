@@ -32,7 +32,19 @@ const utils = {
     
     // Mostrar mensagem de notificação
     mostrarNotificacao: function(mensagem, tipo = 'success') {
-        // Implementação básica - pode ser melhorada com uma biblioteca de notificações
-        alert(mensagem);
+        const div = document.createElement('div');
+        div.textContent = mensagem;
+        div.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            color: white;
+            background-color: ${tipo === 'success' ? '#4CAF50' : '#f44336'};
+            z-index: 1000;
+        `;
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
     }
 };
